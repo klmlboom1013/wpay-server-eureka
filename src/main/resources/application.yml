@@ -1,0 +1,26 @@
+spring:
+  application:
+    name: wpay-server-eureka
+#  security:
+#    user:
+#      name: admin
+#      password: admin
+
+eureka:
+  client:
+    register-with-eureka: false
+    fetch-registry: false
+  server:
+    expected-client-renewal-interval-seconds: 60 # 클라이언트 하트비트 간격
+    eviction-interval-timer-in-ms: 0 # 만료된 클라이언트 제거
+    renewal-percent-threshold: 0.85 # 임계값
+  instance:
+    hostname: localhost`
+    lease-expiration-duration-in-seconds: 90
+    lease-renewal-interval-in-seconds: 30
+
+server:
+  port: 8761
+
+logging:
+  config: classpath:log4j2.yml # log4j2 설정 .yml 파일 경로 설정

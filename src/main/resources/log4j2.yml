@@ -1,0 +1,50 @@
+Configutation:
+  name: Default
+  status: debug
+
+  Properties:
+    Property:
+      - name: "log-path"
+        value: "./logs"
+      - name: "pattern"
+        value: "%style{%d{yyyy-MM-dd HH:mm:ss.SSS}}{cyan} %style{[%t]}{yellow} %l %highlight{[%-5p]}{FATAL=bg_red, ERROR=red, INFO=green, DEBUG=blue} %m%n"
+      - name: "charset-UTF-8"
+        value: "UTF-8"
+
+  Appenders:
+    Console:
+      name: Console_Appender
+      target: SYSTEM_OUT
+      PatternLayout:
+        charset: ${charset-UTF-8}
+        pattern: ${pattern}
+        disableAnsi: false
+    RollingFile:
+      name: RollingFile_Appender
+      fileName: ${log-path}/wpay-eureka-server.log
+      filePattern: "logs/archive/wpay-eureka-server.log.%d{yyyy-MM-dd-hh-mm}_%i.gz"
+      PatternLayout:
+        charset: ${charset-UTF-8}
+        pattern: ${pattern}
+      Policies:
+        SizeBasedTriggeringPolicy:
+          size: "500MB"
+        TimeBasedTriggeringPolicy:
+          interval: "1"
+      DefaultRollOverStrategy:
+        max: "30"
+        fileIndex: "max"
+  Loggers:
+    Root:
+      level: debug
+      AppenderRef:
+        - ref: Console_Appender
+        - ref: RollingFile_Appender
+    Logger:
+      #name: example.demospringboot
+      name: com.hslee
+      additivity: false
+      level: debug
+      AppenderRef:
+        - ref: Console_Appender
+        - ref: RollingFile_Appender
